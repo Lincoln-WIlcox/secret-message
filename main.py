@@ -1,9 +1,14 @@
+import sys
 from secret_message import print_secret_messages
 
-DOC_URL = "https://docs.google.com/document/d/e/2PACX-1vSvM5gDlNvt7npYHhp_XfsJvuntUhq184By5xO_pA4b_gCWeXb6dM6ZxwN8rE6S4ghUsCj2VKR21oEP/pub"
-
 def main():
-    print_secret_messages(DOC_URL)
+    using_url = ""
+    if len(sys.argv) > 1:
+        using_url = sys.argv[1]
+    else:
+        print("expecting argument for doc url.")
+        return
+    print_secret_messages(using_url)
 
 if __name__ == "__main__":
     main()
