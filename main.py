@@ -1,15 +1,9 @@
-import sys
+from secret_message import get_secret_message
+
+DOC_URL = "https://docs.google.com/document/d/e/2PACX-1vQiXslA86U3m6GVPw5ewTUvrGORfEZiOzpMnU1UQbJO_oEX-5bsQJwTJL4DVTB549AGxwGxk9uw4ksH/pub"
 
 def main():
-    """Main entry point of the script."""
-    print("Hello, world! This script is running directly.")
-    
-    # You can access command-line arguments using sys.argv
-    if len(sys.argv) > 1:
-        print(f"Arguments passed: {sys.argv[1:]}")
-    else:
-        print("No arguments passed.")
+    get_secret_message(DOC_URL)
 
 if __name__ == "__main__":
-    # The code in this block runs only when the file is executed as a script.
     main()
