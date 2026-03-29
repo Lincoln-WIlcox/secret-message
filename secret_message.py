@@ -42,8 +42,56 @@ def _filter_tables_by_columns(tables, required_columns):
 
     return filtered_tables
 
+def _build_secret_message_table(characters_table):
+    max_x = characters_table["x-coordinate"].astype(int).max()
+    max_y = characters_table["y-coordinate"].astype(int).max()
 
-def get_secret_message(doc_url):
+    #make table using the given dimensions filled with spaces; we'll replace the spaces later
+    secret_message_tables = pd.DataFrame([[" " for _ in range(max_x + 1)] for _ in range(max_y + 1)])
+
+    for _, row in characters_table.iterrows():
+        x = int(row["x-coordinate"])
+        y = int(row["y-coordinate"])
+        char = row["Character"]
+
+        secret_message_tables.iloc[y, x] = char
+
+    return secret_message_tables
+
+def _build_secret_message_tables(characters_tables):
+    secret_message_tables = []
+    for character_table in characters_tables:
+        secret_message_table = _build_secret_message_table(character_table)
+        secret_message_tables.append(secret_message_table)
+    
+    return secret_message_tables
+
+def _build_secret_message(secret_message_table):
+    secret_message = ""
+
+    for row in secret_message_table.itertuples(index=False):
+        for value in row:
+            secret_message += value
+        secret_message += "\n"
+    
+    return secret_message
+
+def _build_secret_messages(secret_message_tables):
+    secret_messages = []
+    for secret_message_table in secret_message_tables:
+        secret_message = _build_secret_message(secret_message_table)
+        secret_messages.append(secret_message)
+    
+    return secret_messages
+
+def get_secret_messages(doc_url):
     tables = _get_google_doc_tables(doc_url)
     characters_tables = _filter_tables_by_columns(tables, SECRET_MESSAGE_TABLE_COLUMNS)
-    return
+    secret_message_tables = _build_secret_message_tables(characters_tables)
+    secret_messages = _build_secret_messages(secret_message_tables)
+    return secret_messages
+
+def print_secret_messages(doc_url):
+    secret_messages = get_secret_messages(doc_url)
+    for secret_message in secret_messages:
+        print(secret_message)

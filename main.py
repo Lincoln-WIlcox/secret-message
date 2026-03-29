@@ -1,9 +1,9 @@
-from secret_message import get_secret_message
+from secret_message import print_secret_messages
 
-DOC_URL = "https://docs.google.com/document/d/e/2PACX-1vQiXslA86U3m6GVPw5ewTUvrGORfEZiOzpMnU1UQbJO_oEX-5bsQJwTJL4DVTB549AGxwGxk9uw4ksH/pub"
+DOC_URL = "https://docs.google.com/document/d/e/2PACX-1vSvM5gDlNvt7npYHhp_XfsJvuntUhq184By5xO_pA4b_gCWeXb6dM6ZxwN8rE6S4ghUsCj2VKR21oEP/pub"
 
 def main():
-    get_secret_message(DOC_URL)
+    print_secret_messages(DOC_URL)
 
 if __name__ == "__main__":
     main()
